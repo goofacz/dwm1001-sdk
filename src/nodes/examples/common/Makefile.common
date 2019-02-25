@@ -1,8 +1,0 @@
-# Source files common to all targets
-#SRC_FILES := 
-
-# Include folders common to all targets
-INC_FOLDERS += \
-  $(PROJECT_ROOT)/src/nodes/examples/common
-
-include $(PROJECT_ROOT)/src/nodes/common/Makefile.common
