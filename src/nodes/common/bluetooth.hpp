@@ -29,6 +29,7 @@
 extern "C" {
 #include "ble_advertising.h"
 #include "ble_srv_common.h"
+#include "nrf_sdh_ble.h"
 }
 
 namespace common::bluetooth
