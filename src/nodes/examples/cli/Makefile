@@ -1,4 +1,4 @@
-PROJECT_NAME := ss-twr-anchor
+PROJECT_NAME := cli
 PROJECT_ROOT := ../../../..
 
 # Source files common to all targets
@@ -7,5 +7,3 @@ SRC_FILES := \
 
 # Include folders common to all targets
 #INC_FOLDERS += \
-
-include $(PROJECT_ROOT)/src/nodes/examples/common/Makefile.common
