@@ -43,8 +43,8 @@ SRC_FILES += \
   $(PROJECT_ROOT)/nrfsdk/components/libraries/balloc/nrf_balloc.c \
   $(PROJECT_ROOT)/nrfsdk/components/libraries/scheduler/app_scheduler.c \
   $(PROJECT_ROOT)/nrfsdk/components/libraries/queue/nrf_queue.c \
-  $(PROJECT_ROOT)/src/nodes/common/deca_driver/deca_device.c \
-  $(PROJECT_ROOT)/src/nodes/common/deca_driver/deca_params_init.c \
+  $(PROJECT_ROOT)/deca_driver/deca_device.c \
+  $(PROJECT_ROOT)/deca_driver/deca_params_init.c \
   $(PROJECT_ROOT)/src/nodes/common/bluetooth.cpp \
   $(PROJECT_ROOT)/src/nodes/common/dw1000.cpp \
   $(PROJECT_ROOT)/src/nodes/common/utilities.cpp \
@@ -89,7 +89,7 @@ INC_FOLDERS += \
   $(PROJECT_ROOT)/nrfsdk/components/libraries/scheduler \
   $(PROJECT_ROOT)/nrfsdk/external/fprintf \
   $(PROJECT_ROOT)/nrfsdk/components/libraries/queue \
-  $(PROJECT_ROOT)/src/nodes/common/deca_driver \
+  $(PROJECT_ROOT)/deca_driver \
   $(PROJECT_ROOT)/src/nodes/common
   
 # Libraries common to all targets
