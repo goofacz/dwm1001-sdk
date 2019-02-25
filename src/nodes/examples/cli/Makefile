@@ -7,3 +7,5 @@ SRC_FILES := \
 
 # Include folders common to all targets
 #INC_FOLDERS += \
+
+include $(PROJECT_ROOT)/src/nodes/common/Makefile.common
