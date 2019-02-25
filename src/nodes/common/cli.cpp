@@ -32,7 +32,7 @@ extern "C" {
 namespace common::cli
 {
 static const nrfx_uarte_t uart_instance = NRFX_UARTE_INSTANCE(0);
-static gsl::span<const Handler> command_handlers;
+static std::array<Handler, 10> command_handlers{nullptr};
 
 namespace details
 {
@@ -132,7 +132,7 @@ read_arguments(std::array<char, 64>& storage, std::array<const char*, 5>& argume
    return true;
 }
 
-static bool
+static void
 process_command()
 {
    write("##> ");
@@ -142,41 +142,45 @@ process_command()
 
    if(!read_arguments(storage, arguments))
    {
-      return false;
+      return;
    }
 
    const auto is_null{[](const char* element) { return element == nullptr; }};
    if(std::all_of(arguments.begin(), arguments.end(), is_null))
    {
-      return false;
+      return;
    }
 
    for(const auto& handler : command_handlers)
    {
+      if(!handler)
+      {
+         break;
+      }
+
       const auto first_invalid_argument{std::find_if(arguments.begin(), arguments.end(), is_null)};
       const auto valid_arguments{std::distance(arguments.begin(), first_invalid_argument)};
+
       if(handler({arguments.data(), valid_arguments}))
       {
-         return true;
+         return;
       }
    }
 
-   ERROR_LOG("Unnown command");
-   return false;
+   ERROR_LOG("Unknown command");
 }
 
 static void
 receive_command_task(void* /*event*/, uint16_t /*event_size*/)
 {
-   if(!process_command())
+   process_command();
+
+   if(!schedule_command_reception())
    {
-      if(!schedule_command_reception())
-      {
-          while(true)
-          {
-              // nop
-          }
-      }
+       while(true)
+       {
+          // nop
+       }
    }
 }
 
@@ -188,7 +192,13 @@ initialize(const gsl::span<const Handler>& handlers)
    uart_config.pselrxd = RX_PIN_NUM;
    nrfx_uarte_init(&uart_instance, &uart_config, nullptr); // FIXME Check result?
 
-   command_handlers = handlers;
+   if(static_cast<unsigned int>(handlers.size()) > command_handlers.size())
+   {
+      ERROR_LOG("CLI can handle at most ", command_handlers.size(), " commands!");
+      return;
+   }
+
+   std::copy(handlers.begin(), handlers.end(), command_handlers.begin());
 }
 
 bool
