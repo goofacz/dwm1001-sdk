@@ -177,10 +177,10 @@ receive_command_task(void* /*event*/, uint16_t /*event_size*/)
 
    if(!schedule_command_reception())
    {
-       while(true)
-       {
-          // nop
-       }
+      while(true)
+      {
+         // nop
+      }
    }
 }
 

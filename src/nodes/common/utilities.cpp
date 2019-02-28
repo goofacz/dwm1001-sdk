@@ -31,7 +31,6 @@ operator delete(void*, unsigned int)
 
 namespace common::utilities
 {
-
 bool
 schedule_task(SchedulerTask task)
 {

@@ -27,8 +27,8 @@ extern "C" {
 #include "bluetooth.hpp"
 #include "cli.hpp"
 #include "core.hpp"
-#include "utilities.hpp"
 #include "dw1000.hpp"
+#include "utilities.hpp"
 
 using namespace common;
 
@@ -48,8 +48,8 @@ handle_help_command(const gsl::span<const char*>& arguments)
 
    cli::write_line("Available commands:");
    cli::write_line(" help - Displays this message");
-   cli::write_line( "hex [dec_value] - Convert decimal value to hex");
-   cli::write_line( "dec [hex_value] - Convert hex value to decimal");
+   cli::write_line("hex [dec_value] - Convert decimal value to hex");
+   cli::write_line("dec [hex_value] - Convert hex value to decimal");
    return true;
 }
 
@@ -73,7 +73,7 @@ handle_hex_command(const gsl::span<const char*>& arguments)
       ERROR_LOG("Invalid \"value\"");
       return true;
    }
-   
+
    cli::write_line("Result: 0x", cli::hex(*value));
 
    return true;
@@ -99,9 +99,9 @@ handle_dec_command(const gsl::span<const char*>& arguments)
       ERROR_LOG("Invalid \"value\"");
       return true;
    }
-   
+
    cli::write_line("Result: ", *value);
-   
+
    return true;
 }
 
@@ -114,7 +114,7 @@ main()
    dw1000::initialize(0x1234);
 
    INFO_LOG("CLI: Hello world");
-   
+
    cli::schedule_command_reception();
 
    while(true)
@@ -122,4 +122,3 @@ main()
       app_sched_execute();
    }
 }
-
