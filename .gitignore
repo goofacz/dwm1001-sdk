@@ -1,0 +1,5 @@
+deca_driver/*
+nrfsdk/*
+jlink/*
+nrf_cmd_tools/*
+_build
