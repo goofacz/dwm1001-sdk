@@ -66,6 +66,12 @@ write(const char* argument)
 } // namespace details
 
 static bool
+is_printable_ascii(uint8_t value)
+{
+   return (value >= 0x20) && (value <= 0x7e);
+}
+
+static bool
 read_arguments(std::array<char, 64>& storage, std::array<const char*, 5>& arguments)
 {
    arguments.fill(nullptr);
@@ -80,6 +86,10 @@ read_arguments(std::array<char, 64>& storage, std::array<const char*, 5>& argume
       if(buffer == '\r')
       {
          write("\n\r");
+      }
+      else if(!is_printable_ascii(buffer))
+      {
+         continue;
       }
       else
       {
